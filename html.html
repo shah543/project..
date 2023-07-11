@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+  <title>Create Company</title>
+</head>
+<body>
+    <h1>Create Company</h1>
+    <form action="/admin/create" method="POST">
+        <label for="name">Company Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="address">Company Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+        <input type="submit" value="Create">
+    </form>
+</body>
+</html>
+
+
+
+@app.route('/admin/create', methods=['GET', 'POST'])
+def create_company():
+    if request.method == 'POST':
+        name = request.form['name']
+        address = request.form['address']
+
+        # Create a new company
+        company = admin.create_company(name, address)
+
+        # Perform any necessary operations with the created company
+        # ...
+
+        return redirect('/admin')
+
+    return render_template('create_company.html')
+
